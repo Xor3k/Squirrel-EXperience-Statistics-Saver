@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Squirrel EXperience Statistics Saver | Settings</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="form-group">
+            <label>Путь сохранения файлов: </label>
+            <span class="info-toggle">Подробнее</span>
+            <div class="info-content">
+                <ol>
+                    <li>
+                        Указывая не существующую директорию - она создаться сама.
+                    </li>
+                    <li>
+                        Так же если не удастся получить данные клана по каким-то причинам 
+                        в ней же создаться что-то вроде лог файла, с возможными причинами ошибок и время попытки получить данные.
+                    </li>
+                    <li>
+                        Эти настройки сохраняются в файле settings.json. Где лежит этот файл было описано в описание, в readmi файле на github.<br>
+                    </li>
+                </ol>
+            </div>
+            <div class="input-group">
+                <input type="text" id="savePath" placeholder="Путь по умолчанию: D:\Squirrel EXperience Data Saver"></input>
+                <button onclick="selectDirectory()">Выбрать папку</button>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Время выполнения в:</label>
+            <div class="time-picker">
+                <input type="number" id="hours" min="00" max="23" placeholder="Часы">
+                <span>:</span>
+                <input type="number" id="minutes" min="00" max="59" placeholder="Минуты">
+                <span>:</span>
+                <input type="number" id="seconds" min="00" max="59" placeholder="Секунды">
+            </div>
+            <div class="time-presets">
+                <button onclick="setMidnight()">Полночь</button>
+                <button onclick="setCurrentTime()">Сейчас</button>
+                <button onclick="adjustSeconds(10)">+10 сек</button>
+                <button onclick="adjustHours(1)">+1 час</button>
+                <button onclick="adjustSeconds(-10)">-10 сек</button>
+                <button onclick="adjustHours(-1)">-1 час</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>ID клана:</label>
+            <span class="info-toggle">Подробнее</span>
+            <div class="info-content">
+                <ol>
+                    <li>
+                        Указывая ID нескольких кланов через запятую, без пробелов - будет сохраняться и запрашиваться сразу несколько кланов. 
+                        Например: "144399,144399". Сохраняться они будут в разных файлах. 
+                    </li>
+                    <li>
+                        На каждый ID клана, на получения данных дается три попытки. Если все три попытки неудачны -
+                        создается лог ошибок. Где будет время получения неправильных данных и возможные причины. <br>
+                        Ну а дальше - выполняется следующий запрос, если это не последний ID клана.                        
+                    </li>
+                </ol>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" id="clan_id" placeholder="Например: 144399">
+                <button class="clear-input" onclick="clearClanId()">×</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Формат сохранения:</label>
+            <select id="saveFormat">
+                <option value="excel">Excel</option>
+                <option value="json">JSON</option>
+            </select>
+        </div>
+
+        <!-- <div class="form-group checkbox-group">
+            <label>
+                <input type="checkbox" id="autoLaunch">
+                Запускать фоново вместе с системой
+            </label>
+        </div> -->
+
+        <button class="save-button" onclick="saveSettings()">Сохранить настройки</button>
+
+        <div class="info-version">ver. 0.0.1</div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>
