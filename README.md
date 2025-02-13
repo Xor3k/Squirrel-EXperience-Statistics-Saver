@@ -1,6 +1,6 @@
 # Что это такое?
 
-Это небольшое, но удобное приложение для автоматического выполнения API-запросов на [squirrelsquery.yukkerike.ru](https://squirrelsquery.yukkerike.ru) и сохранения результатов в файл. Запустив его - оно работает в фоновом режиме и не требует постоянного внимания.
+Это небольшое, но относительно удобное приложение для автоматического выполнения API-запросов на [squirrelsquery.yukkerike.ru](https://squirrelsquery.yukkerike.ru) и сохранения статистика клана в Excel или Json файл. Запустив его - оно работает в фоновом режиме и не требует вашего постоянного внимания.
 
 ---
 
@@ -59,6 +59,8 @@
 
 Это зависит от вашей системы:
 - Windows: C:\Users\{USERNAME}\AppData\Roaming\{APP_NAME}\settings.json
+
+В проекта сборка выполняется в .exe файл под системы Windows. Если собирете под свою систему, то:
 - macOS: ~/Library/Application Support/{APP_NAME}/settings.json
 - Linux: ~/.config/{APP_NAME}/settings.json
 

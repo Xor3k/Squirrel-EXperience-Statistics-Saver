@@ -25,7 +25,7 @@
                 </ol>
             </div>
             <div class="input-group">
-                <input type="text" id="savePath" placeholder="Путь по умолчанию: D:\Squirrel EXperience Data Saver"></input>
+                <input type="text" id="savePath" placeholder="Путь по умолчанию: D:\Squirrel EXperience Statistics Saver"></input>
                 <button onclick="selectDirectory()">Выбрать папку</button>
             </div>
         </div>
@@ -33,11 +33,11 @@
         <div class="form-group">
             <label>Время выполнения в:</label>
             <div class="time-picker">
-                <input type="number" id="hours" min="00" max="23" placeholder="Часы">
+                <input type="number" id="hours" min="0" max="23" placeholder="Часы" oninput="timeInput(this, 'minutes')">
                 <span>:</span>
-                <input type="number" id="minutes" min="00" max="59" placeholder="Минуты">
+                <input type="number" id="minutes" min="0" max="59" placeholder="Минуты" oninput="timeInput(this, 'seconds')">
                 <span>:</span>
-                <input type="number" id="seconds" min="00" max="59" placeholder="Секунды">
+                <input type="number" id="seconds" min="0" max="59" placeholder="Секунды" oninput="timeInput(this)">
             </div>
             <div class="time-presets">
                 <button onclick="setMidnight()">Полночь</button>
@@ -55,8 +55,8 @@
             <div class="info-content">
                 <ol>
                     <li>
-                        Указывая ID нескольких кланов через запятую, без пробелов - будет сохраняться и запрашиваться сразу несколько кланов. 
-                        Например: "144399,144399". Сохраняться они будут в разных файлах. 
+                        Указывая ID нескольких кланов через запятую - будет сохраняться и запрашиваться сразу несколько кланов. 
+                        Например: "144399, 144399". Сохраняться они будут в разных файлах. Лишние пробелы будут убраны.
                     </li>
                     <li>
                         На каждый ID клана, на получения данных дается три попытки. Если все три попытки неудачны -
@@ -76,19 +76,14 @@
             <select id="saveFormat">
                 <option value="excel">Excel</option>
                 <option value="json">JSON</option>
+                <option value="all">Оба</option>
             </select>
         </div>
 
-        <!-- <div class="form-group checkbox-group">
-            <label>
-                <input type="checkbox" id="autoLaunch">
-                Запускать фоново вместе с системой
-            </label>
-        </div> -->
-
         <button class="save-button" onclick="saveSettings()">Сохранить настройки</button>
 
-        <div class="info-version">ver. 0.0.1</div>
+        <div id="message" class="message"></div>
+        <div class="info-version">ver. 0.0.2</div>
     </div>
     <script src="js/main.js"></script>
 </body>

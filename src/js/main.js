@@ -60,13 +60,12 @@ function adjustSeconds(change) {
 }
 
 async function saveSettings() {
-
     const hours = document.getElementById('hours').value.padStart(2, '0');
     const minutes = document.getElementById('minutes').value.padStart(2, '0');
     const seconds = document.getElementById('seconds').value.padStart(2, '0');
     const getPath = document.getElementById('savePath').value;
     const checkPath = /^[A-Za-z]:\\/.test(getPath);
-    const path = checkPath ? getPath : `D:\\Squirrel EXperience Data Saver\\${getPath}`;
+    const path = checkPath ? getPath : `D:\\Squirrel EXperience Statistics Saver\\${getPath}`;
 
     const settings = {
         savePath: path,
@@ -96,7 +95,6 @@ async function saveSettings() {
 }
 
 async function loadSettings() {
-
     const settings = await window.electronAPI.getSettings();
     document.getElementById('savePath').value = settings.savePath || '';
     
@@ -119,6 +117,52 @@ async function selectDirectory() {
         }
     } catch (error) {
         console.error('Ошибка при выборе директории:', error);
+    }
+}
+
+function clearClanId() {
+    document.getElementById('clan_id').value = '';
+    document.getElementById('clan_id').focus();
+}
+
+function timeInput(input, nextId, lastId) {
+    input.value = input.value.replace(/[^0-9]/g, '');
+
+    if (input.id === 'hours' && input.value > 23) input.value = 23;
+    if (input.id === 'minutes' && input.value > 59) input.value = 59;
+    if (input.id === 'seconds' && input.value > 59) input.value = 59;
+
+    if (input.value.length >= 2 && nextId) {
+        const currentValue = input.value;
+        const nextInput = document.getElementById(nextId);
+        nextInput.focus();
+        nextInput.value = currentValue.slice(2);
+        input.value = currentValue.slice(0, 2);
+    }
+
+    if (input.id === lastId) {
+        const totalValue = (timeInputs.hours.value + timeInputs.minutes.value + timeInputs.seconds.value).replace(/[^0-9]/g, '');
+        
+        if (totalValue.length >= 6) {
+            document.getElementById('hours').value = totalValue.slice(0, 2);
+            document.getElementById('minutes').value = totalValue.slice(2, 4);
+            document.getElementById('seconds').value = totalValue.slice(4, 6);
+        }
+    }
+}
+
+function setTimeFormat() {
+    const timeInputs = ['hours', 'minutes', 'seconds'];
+    
+    timeInputs.forEach(id => {
+        const input = document.getElementById(id);
+        input.addEventListener('blur', () => formatTimeInput(input));
+    });
+}
+
+function formatTimeInput(input) {
+    if (input.value && input.value.length === 1) {
+        input.value = input.value.padStart(2, '0');
     }
 }
 
@@ -183,10 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-function clearClanId() {
-    document.getElementById('clan_id').value = '';
-    document.getElementById('clan_id').focus();
-}
-
-window.onload = loadSettings;
+window.onload = function() {
+    loadSettings();
+    setTimeFormat();
+};

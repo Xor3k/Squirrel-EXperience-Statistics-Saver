@@ -144,7 +144,7 @@ button:hover {
 .save-button {
     width: 100%;
     margin-top: 20px;
-    margin-bottom: 10%;
+    margin-bottom: 6%;
     padding: 12px;
     font-size: 16px;
 }
@@ -352,4 +352,25 @@ select:focus {
         text-align: center;
         margin-top: 20px;
     }
+}
+
+.message {
+    opacity: 0;
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    overflow-wrap: break-word;
+    transition: opacity 1s ease-in-out;
+}
+
+.message.show {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.message.fadeOut {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
 }
